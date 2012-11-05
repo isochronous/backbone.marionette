@@ -7,14 +7,9 @@
 Marionette.Region = function(options){
   this.options = options || {};
 
-  var el = this.options.el;
-  delete this.options.el;
-
   Marionette.addEventBinder(this);
 
-  if (el){
-    this.el = el;
-  }
+  this.el = Marionette.getOption(this, "el");
 
   if (!this.el){
     var err = new Error("An 'el' must be specified for a region.");
@@ -133,7 +128,7 @@ _.extend(Marionette.Region.prototype, Backbone.Events, {
   // Override this method to change how the new view is
   // appended to the `$el` that the region is managing
   open: function(view){
-    this.$el.html(view.el);
+    this.$el.empty().append(view.el);
   },
 
   // Close the current view, if there is one. If there is no

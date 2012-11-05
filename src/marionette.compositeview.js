@@ -26,7 +26,7 @@ Marionette.CompositeView = Marionette.CollectionView.extend({
   // `this.itemView` or Marionette.CompositeView if no `itemView`
   // has been defined
   getItemView: function(item){
-    var itemView = this.options.itemView || this.itemView || this.constructor;
+    var itemView = Marionette.getOption(this, "itemView") || this.constructor;
 
     if (!itemView){
       var err = new Error("An `itemView` must be specified");
@@ -46,8 +46,6 @@ Marionette.CompositeView = Marionette.CollectionView.extend({
     if (this.model){
       data = this.model.toJSON();
     }
-
-    data = this.mixinTemplateHelpers(data);
 
     return data;
   },
@@ -87,6 +85,7 @@ Marionette.CompositeView = Marionette.CollectionView.extend({
   renderModel: function(){
     var data = {};
     data = this.serializeData();
+    data = this.mixinTemplateHelpers(data);
 
     var template = this.getTemplate();
     return Marionette.Renderer.render(template, data);
