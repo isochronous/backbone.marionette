@@ -138,10 +138,10 @@ A sub-module can override this behavior by setting it's `startWithParent`
 to false. This prevents it from being started by the parent's `start` call.
 
 ```js
-MyApp.module("Foo", define: function(){...});
+MyApp.module("Foo", function(){...});
 
 MyApp.module("Foo.Bar", {
-  startWithParent: true,
+  startWithParent: false,
   define: function(){...}
 })
 
