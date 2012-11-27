@@ -9,7 +9,7 @@
 // Used for composite view management and sub-application areas.
 Marionette.Layout = Marionette.ItemView.extend({
   regionType: Marionette.Region,
-  
+
   // Ensure the regions are avialable when the `initialize` method
   // is called.
   constructor: function () {
@@ -29,13 +29,23 @@ Marionette.Layout = Marionette.ItemView.extend({
       // reset the regions
       this._firstRender = false;
     } else {
-      // If this is not the first render call, then we need to 
+      // If this is not the first render call, then we need to
       // re-initializing the `el` for each region
       this.closeRegions();
       this.reInitializeRegions();
     }
 
     var result = Marionette.ItemView.prototype.render.apply(this, arguments);
+
+    // FIX: Issue 351 - https://github.com/marionettejs/backbone.marionette/pull/351
+    // inject regions into template
+    var that = this;
+    _.each(this.regionManagers, function(region){
+      if (region.currentView) {
+        that.$el.find(region.el).html(region.currentView.$el);
+      }
+    });
+
     return result;
   },
 
