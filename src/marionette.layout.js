@@ -9,7 +9,7 @@
 // Used for composite view management and sub-application areas.
 Marionette.Layout = Marionette.ItemView.extend({
   regionType: Marionette.Region,
-  
+
   // Ensure the regions are avialable when the `initialize` method
   // is called.
   constructor: function () {
@@ -31,7 +31,7 @@ Marionette.Layout = Marionette.ItemView.extend({
       // reset the regions
       this._firstRender = false;
     } else {
-      // If this is not the first render call, then we need to 
+      // If this is not the first render call, then we need to
       // re-initializing the `el` for each region
       this.closeRegions();
       this.reInitializeRegions();
